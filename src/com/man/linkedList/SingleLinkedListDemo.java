@@ -19,8 +19,17 @@ public class SingleLinkedListDemo
         singleLinkedList.addByOrder(h3);
         singleLinkedList.addByOrder(h4);
         singleLinkedList.addByOrder(h2);
+        //singleLinkedList.addByOrder(h2);
 
         //显示
+        System.out.println("修改前显示");
+        singleLinkedList.list();
+
+        HeroNode h5 = new HeroNode(4,"5","55");
+        singleLinkedList.update(h5);
+
+        //显示
+        System.out.println("修改后显示");
         singleLinkedList.list();
 
     }
@@ -62,7 +71,8 @@ class SingleLinkedList
             else if (temp.next.no == heroNode.no)
             {
                 flag = true;
-                System.out.println("存在重复的结点编号 %d" + heroNode.no);
+                System.out.println("存在重复的结点编号" + heroNode.no);
+                break;
             }
             else
             {
@@ -98,6 +108,38 @@ class SingleLinkedList
                 break;
             System.out.println(temp.toString());
             temp = temp.next;
+        }
+    }
+
+    public void update(HeroNode heroNode)
+    {
+        HeroNode temp = head.next;
+
+        boolean flag = false;    //表示编号结点是否已经找到
+        while(true)
+        {
+            if (temp == null)
+            {
+                System.out.println("链表为空，不能修改");
+                break;
+            }
+            if (temp.no == heroNode.no)
+            {
+                flag = true;
+                break;
+            }
+            else
+                temp = temp.next;
+        }
+
+        if (flag)
+        {
+            temp.name = heroNode.name;
+            temp.nickName = heroNode.nickName;
+        }
+        else
+        {
+            System.out.printf("编号%d未找到\n",heroNode.no);
         }
     }
 }
