@@ -22,14 +22,22 @@ public class SingleLinkedListDemo
         //singleLinkedList.addByOrder(h2);
 
         //显示
-        System.out.println("修改前显示");
-        singleLinkedList.list();
-
-        HeroNode h5 = new HeroNode(4,"5","55");
-        singleLinkedList.update(h5);
+        //System.out.println("修改前显示");
+        //singleLinkedList.list();
+        //
+        //HeroNode h5 = new HeroNode(4,"5","55");
+        //singleLinkedList.update(h5);
 
         //显示
-        System.out.println("修改后显示");
+        System.out.println("删除前显示");
+        singleLinkedList.list();
+
+        System.out.println("删除后显示");
+        //singleLinkedList.delete(5);
+        singleLinkedList.delete(1);
+        singleLinkedList.delete(2);
+        singleLinkedList.delete(3);
+        singleLinkedList.delete(4);
         singleLinkedList.list();
 
     }
@@ -140,6 +148,42 @@ class SingleLinkedList
         else
         {
             System.out.printf("编号%d未找到\n",heroNode.no);
+        }
+    }
+
+    public void delete(int hNo)
+    {
+        HeroNode temp = head;
+        if (temp.next == null)
+        {
+            System.out.println("链表为空，不能删除结点");
+            return;
+        }
+        boolean flag = false;
+        while(true)
+        {
+            if (temp.next == null)
+            {
+                //System.out.println("已到链表尾部，无法删除");
+                break;
+            }
+            if (temp.next.no == hNo)
+            {
+                flag = true;
+                break;
+            }
+            else
+            {
+                temp = temp.next;
+            }
+        }
+        if (flag)
+        {
+            temp.next = temp.next.next;
+        }
+        else
+        {
+            System.out.println("没有找到相对应的编号，不能进行删除");
         }
     }
 }
