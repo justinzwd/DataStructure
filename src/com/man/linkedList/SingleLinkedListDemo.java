@@ -15,10 +15,10 @@ public class SingleLinkedListDemo
         SingleLinkedList singleLinkedList = new SingleLinkedList();
 
         //将结点加入到单链表中
-        singleLinkedList.add(h1);
-        singleLinkedList.add(h2);
-        singleLinkedList.add(h3);
-        singleLinkedList.add(h4);
+        singleLinkedList.addByOrder(h1);
+        singleLinkedList.addByOrder(h3);
+        singleLinkedList.addByOrder(h4);
+        singleLinkedList.addByOrder(h2);
 
         //显示
         singleLinkedList.list();
@@ -43,6 +43,44 @@ class SingleLinkedList
             temp = temp.next;
         }
         temp.next = heroNode;
+    }
+
+    public void addByOrder(HeroNode heroNode)
+    {
+        HeroNode temp = head;
+        boolean flag = false;   //表示结点编号是否已经存在
+
+        while(true)
+        {
+            if (temp.next == null)
+                break;  //如果到了链表的最后了还没找到合适的插入位置，那就停止，在最后插入
+
+            if (temp.next.no > heroNode.no)
+            {
+                break;  //temp和temp.next之间的位置将是插入的位置
+            }
+            else if (temp.next.no == heroNode.no)
+            {
+                flag = true;
+                System.out.println("存在重复的结点编号 %d" + heroNode.no);
+            }
+            else
+            {
+                temp = temp.next;
+            }
+        }
+
+        //根据flag判断是否可以插入，根据temp判断插入的位置
+        if (flag)
+        {
+            return;
+        }
+        else
+        {
+            //插入
+            heroNode.next = temp.next;
+            temp.next = heroNode;
+        }
     }
 
     public void list()
