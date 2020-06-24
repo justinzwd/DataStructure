@@ -1,5 +1,7 @@
 package com.man.linkedList;
 
+import java.util.Stack;
+
 public class SingleLinkedListDemo
 {
     public static int getLength(HeroNode head)
@@ -40,6 +42,27 @@ public class SingleLinkedListDemo
 
         return current;
 
+    }
+
+    public static void reversePrint(HeroNode head)
+    {
+        Stack<HeroNode> stack = new Stack<>();
+        if (head.next == null)
+        {
+            System.out.println("链表为空，不能打印");
+        }
+
+        HeroNode cur = head.next;
+        while(cur != null)
+        {
+            stack.push(cur);
+            cur = cur.next;
+        }
+
+        while(stack.size()>0)
+        {
+            System.out.println(stack.pop());
+        }
     }
 
     public static void reverseSingleLinkedList(HeroNode head)
@@ -107,9 +130,13 @@ public class SingleLinkedListDemo
 
         //System.out.println("删除后的结点个数为：" + getLength(singleLinkedList.getHead()));
 
-        reverseSingleLinkedList(singleLinkedList.getHead());
+        //reverseSingleLinkedList(singleLinkedList.getHead());
+        //System.out.println("反转之后");
+        //singleLinkedList.list();
+
         System.out.println("反转之后");
-        singleLinkedList.list();
+        reversePrint(singleLinkedList.getHead());
+
     }
 }
 
