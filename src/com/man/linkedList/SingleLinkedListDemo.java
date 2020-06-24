@@ -2,6 +2,68 @@ package com.man.linkedList;
 
 public class SingleLinkedListDemo
 {
+    public static int getLength(HeroNode head)
+    {
+        HeroNode current = head.next;
+        if (current == null)
+        {
+            System.out.println("链表为空");
+            return 0;
+        }
+
+        int length = 0;
+        while(current != null)
+        {
+            length++;
+            current = current.next;
+        }
+        return length;
+    }
+
+    public static HeroNode getLastKNode(HeroNode head,int index)
+    {
+        //获得链表的长度
+        int size = getLength(head);
+        //从头开始遍历size-index个，即可遍历到倒数index个
+
+        //判断index是否合法,index为自然语言中的下标，从1开始
+        if (index <= 0 || index > size)
+        {
+            return null;
+        }
+
+        HeroNode current = head.next;
+        for (int i=0;i<size-index;i++)
+        {
+            current = current.next;
+        }
+
+        return current;
+
+    }
+
+    public static void reverseSingleLinkedList(HeroNode head)
+    {
+        HeroNode current = head.next;
+        if (current == null || current.next == null)
+        {
+            System.out.println("链表为空或者只有一个元素，反转后与原链表一样");
+            return;
+        }
+        HeroNode reverse = new HeroNode(0,"","");
+        reverse.next = current;
+        HeroNode temp = current.next;
+        current.next = null;
+        while(temp!=null)
+        {
+            current = temp;
+            temp = temp.next;
+            current.next = reverse.next;
+            reverse.next = current;
+        }
+
+        head.next = reverse.next;
+    }
 
     public static void main(String[] args)
     {
@@ -31,15 +93,23 @@ public class SingleLinkedListDemo
         //显示
         System.out.println("删除前显示");
         singleLinkedList.list();
+        System.out.println("删除前的结点个数为：" + getLength(singleLinkedList.getHead()));
 
-        System.out.println("删除后显示");
-        //singleLinkedList.delete(5);
-        singleLinkedList.delete(1);
-        singleLinkedList.delete(2);
-        singleLinkedList.delete(3);
-        singleLinkedList.delete(4);
+        //System.out.println(getLastKNode(singleLinkedList.getHead(),1));
+
+        //System.out.println("删除后显示");
+        ////singleLinkedList.delete(5);
+        //singleLinkedList.delete(1);
+        //singleLinkedList.delete(2);
+        //singleLinkedList.delete(3);
+        //singleLinkedList.delete(4);
+        //singleLinkedList.list();
+
+        //System.out.println("删除后的结点个数为：" + getLength(singleLinkedList.getHead()));
+
+        reverseSingleLinkedList(singleLinkedList.getHead());
+        System.out.println("反转之后");
         singleLinkedList.list();
-
     }
 }
 
@@ -47,6 +117,11 @@ class SingleLinkedList
 {
     private HeroNode head = new HeroNode(0,"","");
 
+    //获得头结点
+    public HeroNode getHead()
+    {
+        return head;
+    }
     public void add(HeroNode heroNode)
     {
 
